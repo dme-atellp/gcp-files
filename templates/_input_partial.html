@@ -1,0 +1,140 @@
+<div class="row" id="dyna_row">  
+   <hr />
+   {% for i in inputs %} 
+   {% set parts = i.input_id.split('.') %}
+      {% if(i.input_type == "select") %}
+         <div class="input-field col s12 m4">
+            
+               {% if(i.input_variables != "") %}
+                  <select id="{{i.input_display_id}}_{{clickCount}}" name="select_{{parts[-1]}}" required>
+                     <option selected disabled value="">Please Select</option>
+                     {% for option in i.input_variables|split(";") %}
+                        <option>{{ option }}</option>
+                     {% endfor %}
+                  </select>
+                  
+               {% elif(i.data_call_table_name == 'modulemaster' and i.input_display_name == 'Module') %}
+                  <select id="{{i.input_display_id}}_{{clickCount}}" name="select_{{parts[-1]}}" required>
+                     <option selected disabled value="">Please Select</option>
+                     {% for mod in modules %}
+                        <option style="font-size: 12px;" value="{{mod.module_id}}">{{mod.module_display_name}}</option>
+                     {% endfor %}
+                  </select>
+               {% elif(i.data_call_table_name == 'modulemaster' and i.input_display_name == 'Process Owner') %}
+                  <select id="{{i.input_display_id}}_{{clickCount}}" name="select_{{parts[-1]}}" required>
+                     <option selected disabled value="">Please Select</option>
+                     {% for mod in modules %}
+                        <option style="font-size: 12px;" value="{{mod.module_owner}} - {{mod.module_owner_id}}">{{mod.module_owner}} - {{mod.module_owner_id}}</option>
+                     {% endfor %}
+                  </select>
+               {% elif(i.data_call_table_name == 'employeemaster') %}
+                  <select id="{{i.input_display_id}}_{{clickCount}}" name="select_{{parts[-1]}}" required>
+                     <option selected disabled value="">Please Select</option>
+                     {% for emp in employees %}
+                        <option style="font-size: 12px;" value="{{emp.combo}}">{{emp.combo}}</option>
+                     {% endfor %}
+                  </select>
+               {% endif %}
+             
+            <label class="label" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</label>  
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>                     
+         </div>
+      {% elif(i.input_type == "select_multiple") %}
+         <div class="input-field col s12 m4">
+            <select multiple style="width: 100%; font-size: 12px;" size="5" multiple id="{{i.input_display_id}}_{{clickCount}}" required>
+               {% if(i.input_variables != "") %}
+                  {% for option in i.input_variables|split(";") %}
+                     <option>{{option}}</option>
+                  {% endfor %}
+               {% elif(i.data_call_table_name == 'projectmaster') %}
+                  {% for loc in locations %}
+                     <option style="font-size: 12px;">{{loc.location}}</option>
+                  {% endfor %}
+               {% elif(i.data_call_table_name == 'processmaster') %}
+                  {% for pro in processes %}
+                     <option style="font-size: 12px;">{{pro.process_display_name}}</option>
+                  {% endfor %}
+               {% elif(i.data_call_table_name == 'taskmaster') %}
+                  {% for task in tasks %}
+                     <option style="font-size: 12px;">{{task.task_display_name}}</option>
+                  {% endfor %}
+               {% endif %}
+            </select> 
+            <label class="label" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</label>    
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>                       
+         </div>
+      {% elif(i.input_type == "checkbox" and parts[-1] != "1") %}
+         <div class="form-check form-check-inline col s12 m4">
+            <lable class="label" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</lable>
+            <input type="checkbox" class="input-text js-input" id="{{i.input_display_id}}_{{clickCount}}" required />
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>    
+         </div>
+      {% elif(i.input_type == "text") %}
+         <div class="input-field col s12 m4">
+            <lable class="label" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</lable>
+            <input type="text" class="input-text js-input" id="{{i.input_display_id}}_{{clickCount}}" required />
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>    
+         </div>
+      {% elif(i.input_type == "number") %}
+         <div class="input-field col s12 m4">
+            <lable class="label" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</lable>
+            <input type="number" class="input-text js-input" id="{{i.input_display_id}}_{{clickCount}}" required />
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>    
+         </div>
+      {% elif(i.input_type == "date") %}
+         <div class="input-field col s12 m4">
+            <lable class="label" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</lable>
+            <input type="date" class="input-text js-input" id="{{i.input_display_id}}_{{clickCount}}" required />
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>    
+         </div>
+      {% elif(i.input_type == "datetime") %}
+         <div class="input-field col">
+            <lable class="label" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</lable>
+            <input type="datetime" class="input-text js-input" id="{{i.input_display_id}}_{{clickCount}}" required />
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>    
+         </div>
+      {% elif(i.input_type == "time") %}
+         <div class="input-field col s12 m4">
+            <lable class="label" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</lable>
+            <input type="time" class="input-text js-input" id="{{i.input_display_id}}_{{clickCount}}" required />
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>    
+         </div>
+      {% elif(i.input_type == "radio") %}
+         <div class="input-field col s12 m4">
+            <lable class="label" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</lable>
+            <input type="radio" class="input-text js-input" id="{{i.input_display_id}}_{{clickCount}}" required />
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>    
+         </div>
+      {% elif(i.input_type == "email") %}
+         <div class="input-field col s12 m4">
+            <lable class="label" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</lable>
+            <input type="email" class="input-text js-input" id="{{i.input_display_id}}_{{clickCount}}" required />
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>    
+         </div>
+      {% elif(i.input_type == "tel") %}
+         <div class="input-field col s12 m4">
+            <lable class="label" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</lable>
+            <input type="tel" class="input-text js-input" id="{{i.input_display_id}}_{{clickCount}}" pattern="[0-9]{10}" required />
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>    
+         </div>
+      {% elif(i.input_type == "file") %}
+         <div class="input-field col s12 m4">
+            <lable class="label" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</lable>
+            <input type="file" class="input-text js-input" id="{{i.input_display_id}}_{{clickCount}}" required />
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>    
+         </div>
+      {% elif(i.input_type == "textarea") %}
+         <div class="input-field col s12 m4">
+            <lable style="color: #33287a;font-size: 15px;line-height: 26px;font-weight: 400;" for="{{i.input_display_id}}_{{clickCount}}">{{i.input_display_name}}</lable>
+            <textarea class="materialize-textarea js-input" id="{{i.input_display_id}}_{{clickCount}}" required></textarea>
+            <span class="validate" id="span_{{i.input_display_id}}_{{clickCount}}"></span>    
+         </div>
+      {% endif %}
+   {% endfor %}
+   <div class="col s3 m2">
+      <label for="adbtn" class="text-green">Add Request</label>
+      <a class="btn-floating btn-small waves-effect waves-light green center" >
+         <i class="material-icons" id="adbtn" >plus_one</i>
+      </a>
+   </div>
+</div>

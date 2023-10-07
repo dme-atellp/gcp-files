@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+{% block title %}ATELLP | Complete Your Task{% endblock %}
+{% block content %}
+
+<div class="container col s12 m12">
+    <div class="card-panel text-center task-form">
+        <h5 class="card-title center green-text">Complete Your Task</h5>
+        <hr />
+        <div id="main_div">
+            <div class="row" id="r1">
+                <div class="col s12 m1 input-field" hidden>
+                    <input id="lnid" name="lnid" class="input-text js-input" type="text" required value="{{ parameters.get('lnid', '') }}" readonly>
+                    <label class="label" for="lnid">Line ID</label>
+                </div>
+                <div class="col s12 m2 input-field">
+                    <input id="mod" name="mod" class="input-text js-input" type="text" required value="{{ parameters.get('mod', '') }}" readonly>
+                    <label class="label" for="mod">Module</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input id="pro" name="pro" class="input-text js-input" type="text" required value="{{ parameters.get('pro', '') }}" readonly>
+                    <label class="label" for="pro">Process</label>
+                </div>
+                <div class="input-field col s12 m3">
+                    <input id="proj" name="proj" class="input-text js-input" type="text" required value="{{ parameters.get('proj', '') }}" readonly>
+                    <label class="label" for="proj">Project</label>
+                </div>
+                <div class="input-field col s12 m4">
+                    <input id="task" name="task" class="input-text js-input" type="text" required value="{{ parameters.get('task', '') }}" readonly>
+                    <label class="label" for="task">Task</label>
+                </div>
+            </div>
+            <div class="row" id="r2">
+                <div class="input-field col s12 m6">
+                    <textarea id="desc" name="desc" class="materialize-textarea js-input" style="white-space: pre-line;" required readonly>{{ parameters.get('desc', '') }}</textarea>
+                    <label class="label" for="desc">Description</label>               
+                </div>
+                <div class="input-field col s12 m6">
+                    <textarea id="tinfo" name="tinfo" class="materialize-textarea js-input" required readonly>{{ parameters.get('tinfo', '') }}</textarea>
+                    <label class="label" for="tinfo">Task Info</label>               
+                </div>
+            </div>
+            <div class="row" id="r3">
+                <div class="input-field col s12 m3">
+                    <input id="how" name="how" class="input-text js-input" type="text" required value="{{ parameters.get('how', '') }}" readonly>
+                    <label class="label" for="how">How</label>               
+                </div>
+                <div class="input-field col s12 m2">
+                    <input id="tat" name="tat" class="input-text js-input" type="text" required value="{{ parameters.get('tat', '') }}" readonly>
+                    <label class="label" for="tat">TAT</label>
+                </div>          
+                <div class="input-field col s12 m5">
+                    <textarea id="ltinfo" name="ltinfo" class="materialize-textarea js-input" rows="5" required readonly>{{ parameters.get('ltinfo', '') }}</textarea>
+                    <label class="label" for="ltinfo">Last Task Info</label>               
+                </div>
+                {% set parts = inputs_first.input_id.split('.') %}
+                {% if (inputs_first.input_type == "checkbox" and parts[-1] == "1") %}
+                    <div class="input-field col s12 m2">
+                        <label>
+                            <input type="checkbox" name="req" id="req" />
+                            <span style="font-size: 15px; color: #33287a;">{{inputs_first.input_display_name}}</span>
+                            <span id="reqo" style="font-size: 15px; color: #e90909; text-align: center; margin-left: 40%;"><b>NO</b></span>
+                        </label>
+                        
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div id="dyna" class="row">
+                
+            </div>
+            <hr />
+            <div>
+            <ul class="collapsible" id="db">
+                
+            </ul>
+            </div>
+            <button class="btn waves-effect waves-light" id="submitBtn" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("r3").addEventListener("click",clickEventHandler)
+    document.getElementById("dyna").addEventListener("change",changeEventHandler)
+    document.getElementById("dyna").addEventListener("click",changeEventHandler)
+    document.getElementById("db").addEventListener("click",clickEventHandler)
+    document.getElementById("submitBtn").addEventListener("click",clickEventHandler)
+    
+    var process = {{processes | safe }}
+    var task = {{tasks | safe}}
+    
+    
+    
+</script>
+{% endblock %}

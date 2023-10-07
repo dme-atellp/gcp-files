@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" href="{{ url_for('static', filename='image/icon-without-bg.png') }}" type="image/x-icon">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!-- Load jQuery first -->
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> <!-- Then load Materialize JavaScript -->
+      <script src="{{ url_for('static', filename='script.js') }}"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+      {% block contactCSS %}
+      {% endblock %}
+      <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    {% block content %}
+    {% endblock %}
+    <nav class="navbar fixed-bottom bg-body-tertiary" style="background-color: #d8e8ff;">
+      <div class="container-fluid">
+        <a href="https://unrealautomation.com" target="_blank">
+          <img style="width: 40px; height: 40px;" src="{{ url_for('static', filename='image/icon-without-bg.png') }}" alt="Unreal Automation"><u style="color: white;"><span>The Unreals</span></u>
+        </a>
+        © {{current_year}} The Unreals
+      </div>
+    </nav>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.28.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.28.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  </body>
+</html>

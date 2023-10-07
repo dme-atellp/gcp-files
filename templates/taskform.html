@@ -1,0 +1,144 @@
+{% extends "layout.html" %}
+{% block title %}ATELLP | Complete Your Task{% endblock %}
+{% block content %}
+
+<div class="col s12 m12 container">
+   <div class="card-panel text-center">
+      <h5 class="card-title center green-text">Complete Your Task</h5>
+         <hr />
+         <form class="task-form row">
+            <div class="row">
+               <div class="input-field col s12 m1">
+                  <input id="lnid" class="input-text js-input" type="text" required value="{{ parameters.get('lnid', '') }}" readonly>
+                  <label class="label" for="lnid">Line ID</label>
+               </div>
+               <div class="input-field col s12 m2">
+                  <input id="mod" class="input-text js-input" type="text" required value="{{ parameters.get('mod', '') }}" readonly>
+                  <label class="label" for="mod">Module</label>
+               </div>
+               <div class="input-field col s12 m3">
+                  <input id="pro" class="input-text js-input" type="text" required value="{{ parameters.get('pro', '') }}" readonly>
+                  <label class="label" for="pro">Process</label>
+               </div>
+               <div class="input-field col s12 m3">
+                  <input id="proj" class="input-text js-input" type="text" required value="{{ parameters.get('proj', '') }}" readonly>
+                  <label class="label" for="proj">Project</label>
+               </div>
+               <div class="input-field col s12 m3">
+                  <input id="task" class="input-text js-input" type="text" required value="{{ parameters.get('task', '') }}" readonly>
+                  <label class="label" for="task">Task</label>
+               </div>
+            </div>
+            <div class="row">
+               <div class="input-field col">
+                  <textarea id="desc" class="input-area js-input" rows="5" required readonly>{{ parameters.get('desc', '') }}</textarea>
+                  <label class="label" for="desc">Description</label>               
+               </div>
+               <div class="input-field col">
+                  <textarea id="tinfo" class="input-area js-input" rows="5" required readonly>{{ parameters.get('tinfo', '') }}</textarea>
+                  <label class="label" for="tinfo">Task Info</label>               
+               </div>
+               <div class="input-field col">
+                  <input id="how" class="input-text js-input" type="text" required value="{{ parameters.get('how', '') }}" readonly>
+                  <label class="label" for="how">How</label>               
+               </div>
+               <div class="input-field col">
+                  <input id="tat" class="input-text js-input" type="text" required value="{{ parameters.get('tat', '') }}" readonly>
+                  <label class="label" for="tat">TAT</label>
+               </div>
+               
+               <div class="input-field col">
+                  <textarea id="ltinfo" class="input-area js-input" rows="5" required readonly>{{ parameters.get('ltinfo', '') }}</textarea>
+                  <label class="label" for="ltinfo">Last Task Info</label>               
+               </div>
+            </div>
+            <div class="row">
+               {% for i in inputs %} 
+                  {% set parts = i.input_id.split('.') %}
+                     {% if(i.input_type == "select") %}
+                        <div class="input-field col">
+                           <label class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</label>
+                           <select id="t{{parts[-1]}}">
+                              {% for option in i.input_variables|split(";") %}
+                                 <option>{{ option }}</option>
+                              {% endfor %}
+                           </select>                        
+                        </div>
+                     {% elif(i.input_type == "select_multiple") %}
+                        <div class="input-field col">
+                           <label class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</label>
+                           <select multiple" style="width: 100%;" size="5" multiple id="t{{parts[-1]}}">
+                              {% for option in i.input_variables|split(";") %}
+                                 <option>{{option}}</option>
+                              {% endfor %}
+                           </select>                        
+                        </div>
+                     {% elif(i.input_type == "checkbox" and parts[-1] == "1") %}
+                        <div class="form-check-inline col">
+                           <lable class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</lable>
+                           <input type="checkbox" class="input-text js-input" id="t{{parts[-1]}}" />
+                           
+                        </div>
+                     {% elif(i.input_type == "checkbox") %}
+                        <div class="form-check form-check-inline col">
+                           <lable class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</lable>
+                           <input type="checkbox" class="input-text js-input" id="t{{parts[-1]}}" />
+                        </div>
+                     {% elif(i.input_type == "text") %}
+                        <div class="input-field col">
+                           <lable class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</lable>
+                           <input type="text" class="input-text js-input" id="t{{parts[-1]}}" />
+                        </div>
+                     {% elif(i.input_type == "number") %}
+                        <div class="input-field col">
+                           <lable class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</lable>
+                           <input type="number" class="input-text js-input" id="t{{parts[-1]}}" />
+                        </div>
+                     {% elif(i.input_type == "date") %}
+                        <div class="input-field col">
+                           <lable class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</lable>
+                           <input type="date" class="input-text js-input" id="t{{parts[-1]}}" />
+                        </div>
+                     {% elif(i.input_type == "datetime") %}
+                        <div class="input-field col">
+                           <lable class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</lable>
+                           <input type="datetime" class="input-text js-input" id="t{{parts[-1]}}" />
+                        </div>
+                     {% elif(i.input_type == "time") %}
+                        <div class="input-field col">
+                           <lable class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</lable>
+                           <input type="time" class="input-text js-input" id="t{{parts[-1]}}" />
+                        </div>
+                     {% elif(i.input_type == "radio") %}
+                        <div class="input-field col">
+                           <lable class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</lable>
+                           <input type="radio" class="input-text js-input" id="t{{parts[-1]}}" />
+                        </div>
+                     {% elif(i.input_type == "email") %}
+                        <div class="input-field col">
+                           <lable class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</lable>
+                           <input type="email" class="input-text js-input" id="t{{parts[-1]}}" />
+                        </div>
+                     {% elif(i.input_type == "tel") %}
+                        <div class="input-field col">
+                           <lable class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</lable>
+                           <input type="tel" class="input-text js-input" id="t{{parts[-1]}}" />
+                        </div>
+                     {% elif(i.input_type == "file") %}
+                        <div class="input-field col">
+                           <lable class="label-auto" for="t{{parts[-1]}}">{{i.input_display_name}}</lable>
+                           <input type="file" class="input-text js-input" id="t{{parts[-1]}}" />
+                        </div>
+                     {% endif %}
+               {% endfor %}
+            </div>
+               <div class="input-field col-lg-12">
+                  <input class="submit-btn" type="submit" value="Submit">
+               </div>
+         </form>
+        
+   </div>
+      
+   </div>
+   
+{% endblock %}

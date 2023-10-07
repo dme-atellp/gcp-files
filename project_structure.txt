@@ -1,0 +1,18 @@
+/gcp-files/
+  - app.py
+  - project_structure.txt
+  - requirements.txt
+  - sql.py
+  + static/
+  + templates/
+  /static/
+    - script.js
+    - style.css
+    + image/
+    /image/
+      - icon-without-bg.png
+  /templates/
+    - index.html
+    - layout.html
+    - taskform.html
+    - _input_partial.html
